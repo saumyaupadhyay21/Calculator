@@ -1,9 +1,9 @@
 import React from 'react';
 
-const OutputScreenRow = () => {
+const OutputScreenRow = (props) => {
     return(
         <div>
-            <input type="text" />
+            <input type="text"  value={props.value} />
         </div>
     )
 }

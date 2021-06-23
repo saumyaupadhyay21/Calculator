@@ -1,47 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CalculatorTitle from './CalculatorTitle';
-import OutputScreen from './OutputScreen';
 import Button from './Button';
+import './Calculator.css';
 
-class Calculator extends React.Component{
-    render(){
-        return(
+const Calculator = () => {
+    
+    const [result, setResult] = useState("");
+
+    const handleClick = (e) => {
+        setResult(result.concat(e.target.value));
+    }
+
+    const clear = () => {
+        setResult("");
+    }
+
+    const backspace = () => {
+        setResult(result.slice(0, -1));
+    } 
+
+    const calculate = () => {
+        try{
+            setResult(eval(result).toString());
+        }
+        catch(err){
+            setResult("Error")
+        }
+    }
+    
+    return(
+        <div className="container">
+            <CalculatorTitle value="Calculator" />
             <div>
-                <CalculatorTitle value="Calculator" />
-                <div>
-                    <OutputScreen />
-                    <div>
-                        <Button label={'Clear'} />
-                        <Button label={'Delete'} />
-                        <Button label={'.'} />
-                        <Button label={'/'} />
-                    </div>
-                    <div>
-                        <Button label={'7'} />
-                        <Button label={'8'} />
-                        <Button label={'9'} />
-                        <Button label={'*'} />
-                    </div>
-                    <div>
-                        <Button label={'4'} />
-                        <Button label={'5'} />
-                        <Button label={'6'} />
-                        <Button label={'-'} />
-                    </div>
-                    <div>
-                        <Button label={'3'} />
-                        <Button label={'2'} />
-                        <Button label={'1'} />
-                        <Button label={'+'} />
-                    </div>
-                    <div>
-                        <Button label={'0'} />
-                        <Button label={'='} />
-                    </div>
+                <form>
+                    <input type="text" value={result} />
+                </form>
+                <div className="keypad">
+                    <Button label={'Clear'} handleClick={clear} />
+                    <Button label={'Delete'} handleClick={backspace} />
+                    <Button label={'.'} handleClick={handleClick} />
+                    <Button label={'/'} handleClick={handleClick} />
+                {/* </div>
+                <div> */}
+                    <Button label={'7'} handleClick={handleClick} />
+                    <Button label={'8'} handleClick={handleClick} />
+                    <Button label={'9'} handleClick={handleClick} />
+                    <Button label={'*'} handleClick={handleClick} />
+                {/* </div>
+                <div> */}
+                    <Button label={'4'} handleClick={handleClick} />
+                    <Button label={'5'} handleClick={handleClick} />
+                    <Button label={'6'} handleClick={handleClick} />
+                    <Button label={'-'} handleClick={handleClick} />
+                {/* </div>
+                <div> */}
+                    <Button label={'3'} handleClick={handleClick} />
+                    <Button label={'2'} handleClick={handleClick} />
+                    <Button label={'1'} handleClick={handleClick} />
+                    <Button label={'+'} handleClick={handleClick} />
+                {/* </div>
+                <div> */}
+                    <Button label={'0'} handleClick={handleClick} />
+                    <Button label={'='} handleClick={calculate} />
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
+    
 }
 
 export default Calculator;
